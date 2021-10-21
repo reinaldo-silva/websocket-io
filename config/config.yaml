@@ -1,0 +1,55 @@
+## Configurações da API-GATEWAY
+##
+##
+######################################################################
+## Configurações da aplicação.
+######################################################################
+app:
+  API_METALQUIP_MAX_REQUEST_SIZE: "15mb"
+
+  API_METALQUIP_SECRET_TOKEN: "imobpower"
+
+  API_METALQUIP_JWT_EXPIRES_IN: "1d"
+
+  API_METALQUIP_JWT_ISSUER: "METALQUIP"
+
+  API_METALQUIP_PORT: "3333"
+######################################################################
+## Configurações do PostgreSQL.
+######################################################################
+
+postgresql:
+  API_METALQUIP_PG_USER: "usr_metalquip"
+
+  API_METALQUIP_PG_HOST: "192.168.0.142"
+
+  API_METALQUIP_PG_PASSWORD: "m3ta1quip2021"
+
+  API_METALQUIP_PG_DATABASE: "metalquip"
+
+  API_METALQUIP_PG_PORT: "5432"
+
+  API_METALQUIP_PG_POOL_SIZE: "20"
+
+######################################################################
+## Configurações YENV ref: https://www.npmjs.com/package/yenv
+######################################################################
+
+# Development config uses base config
+development:
+  # We can compose more than one at a time.
+  ~compose: [app, postgresql]
+  # Declare additional settings..
+  DEV_MODE: true
+
+# Development config uses base config
+test:
+  # We can compose more than one at a time.
+  ~compose: [app, postgresql]
+  # Declare additional settings..
+  DEV_MODE: true
+
+# Production config composes and overrides other sections
+production:
+  ~compose: development
+  DEV_MODE: false
